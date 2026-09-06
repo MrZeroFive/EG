@@ -1,0 +1,89 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Basic English Grammar — Learning Course</title>
+<meta name="description" content="An interactive learning course based on Basic English Grammar Book 1.">
+<link rel="manifest" href="manifest.json">
+<meta name="theme-color" content="#07111f">
+<link rel="apple-touch-icon" href="icons/icon-192.png">
+<style>
+:root{--bg:#f5f7fb;--card:#fff;--text:#18212f;--muted:#667085;--primary:#1666d9;--primary2:#0b4da8;--line:#e4e8ef;--good:#15803d;--shadow:0 10px 30px rgba(16,24,40,.08)}
+*{box-sizing:border-box} body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;background:var(--bg);color:var(--text);line-height:1.6}
+header{background:linear-gradient(135deg,#07111f,#153a6b);color:#fff;padding:28px 18px}
+.wrap{max-width:1050px;margin:auto}.hero{display:grid;grid-template-columns:150px 1fr;gap:24px;align-items:center}.cover{width:150px;height:190px;object-fit:cover;border-radius:12px;box-shadow:0 12px 35px rgba(0,0,0,.35)}
+h1{margin:0 0 6px;font-size:clamp(28px,5vw,46px);line-height:1.1}.hero p{margin:6px 0;color:#d8e5f8}
+.progressbar{height:10px;background:#dfe7f2;border-radius:20px;overflow:hidden}.progressbar>div{height:100%;background:var(--primary);width:0}
+.stats{display:flex;gap:12px;flex-wrap:wrap;margin-top:12px}.pill{background:rgba(255,255,255,.12);padding:6px 10px;border-radius:999px;font-size:14px}
+main{display:grid;grid-template-columns:300px 1fr;gap:22px;padding:24px 0}.panel,.lesson{background:var(--card);border:1px solid var(--line);border-radius:16px;box-shadow:var(--shadow)}
+.panel{padding:16px;height:max-content;position:sticky;top:14px}.panel h2{font-size:18px;margin:0 0 10px}.modules{display:grid;gap:7px;max-height:70vh;overflow:auto}.module-btn{border:1px solid transparent;background:#f6f8fb;border-radius:10px;padding:10px;text-align:left;cursor:pointer;color:var(--text)}.module-btn:hover{border-color:#b9cdf0}.module-btn.active{background:#eaf2ff;border-color:#8bb1eb}.module-btn small{display:block;color:var(--muted)}
+.lesson{padding:24px}.tag{display:inline-block;background:#eaf2ff;color:var(--primary2);padding:4px 9px;border-radius:999px;font-weight:700;font-size:13px}.lesson h2{font-size:32px;margin:10px 0}.topic{padding:14px 16px;background:#f8fafc;border-left:4px solid var(--primary);border-radius:10px;margin:10px 0}
+.quiz{margin-top:22px;padding-top:18px;border-top:1px solid var(--line)}.question{padding:14px 0;border-bottom:1px solid var(--line)}.question b{display:block;margin-bottom:8px}.option{display:block;margin:7px 0}.option input{margin-right:8px}.btns{display:flex;gap:10px;flex-wrap:wrap;margin-top:20px}.btn{border:0;border-radius:10px;padding:11px 16px;cursor:pointer;font-weight:700}.primary{background:var(--primary);color:#fff}.secondary{background:#eef2f7;color:var(--text)}.success{color:var(--good);font-weight:700}.note{color:var(--muted);font-size:14px}
+footer{padding:30px 18px;color:var(--muted);text-align:center}
+@media(max-width:760px){.hero{grid-template-columns:95px 1fr}.cover{width:95px;height:125px}.hero h1{font-size:27px}main{grid-template-columns:1fr;padding:14px}.panel{position:static}.modules{max-height:300px}.lesson{padding:18px}.lesson h2{font-size:26px}}
+</style>
+</head>
+<body>
+<header><div class="wrap hero">
+<img class="cover" src="cover.png" alt="Basic English Grammar Book 1 cover">
+<div><h1>Basic English Grammar</h1><p>Interactive Learning Course • Book 1</p>
+<div class="stats"><span class="pill" id="overall">0% complete</span><span class="pill">14 modules</span><span class="pill">Progress saved on this device</span><button id="installBtn" class="btn secondary" style="display:none;margin:0;padding:6px 10px" type="button">Install App</button></div>
+<div style="margin-top:14px"><div class="progressbar"><div id="overallBar"></div></div></div>
+</div></div></header>
+<main class="wrap">
+<aside class="panel"><h2>Course Modules</h2><div class="modules" id="modules"></div>
+<div class="btns"><button class="btn secondary" onclick="resetProgress()">Reset progress</button></div>
+<p class="note">Your progress uses this browser's local storage. No account is required.</p></aside>
+<section class="lesson" id="lesson"></section>
+</main>
+<footer>Course content is a concise learning adaptation based on the supplied textbook. The original book remains copyrighted by its publisher.</footer>
+<script>
+const course = [["1", "What is Grammar?", "Understand why grammar matters and learn the eight parts of speech.", ["Nouns name people, animals, places, or things.", "Pronouns take the place of nouns.", "Verbs show actions or states.", "Adjectives describe nouns; adverbs describe how actions happen.", "Prepositions show relationships; conjunctions join words or clauses; interjections express strong feeling."], [["Which word names a person, place, animal, or thing?", ["Noun", "Verb", "Adverb", "Conjunction"], 0], ["Which word can take the place of a noun?", ["Adjective", "Pronoun", "Preposition", "Interjection"], 1]]], ["2", "The Capital Letter", "Learn the main situations in which English uses capital letters.", ["Use a capital letter at the beginning of a sentence.", "Capitalize the pronoun I.", "Capitalize names of people and places.", "Capitalize festivals, holidays, days of the week, and months."], [["Which is correctly capitalized?", ["peter lives in london.", "Peter lives in London.", "peter lives in London.", "Peter lives in london."], 1], ["Which word should be capitalized in 'we meet on monday'?", ["we", "meet", "on", "monday"], 3]]], ["3", "Nouns", "Study common and proper nouns, singular and plural nouns, collective nouns, and masculine/feminine nouns.", ["Common nouns name general people, animals, places, or things.", "Proper nouns name particular people, places, or things and begin with a capital letter.", "Singular nouns refer to one; plural nouns refer to two or more.", "Plural forms can use -s, -es, -ies, -ves, or irregular forms.", "Collective nouns name groups; nouns can also be classified by gender in the book's terminology."], [["Which is a proper noun?", ["city", "teacher", "Pakistan", "river"], 2], ["What is the plural of 'baby'?", ["babys", "babyes", "babies", "baby"], 2]]], ["4", "Pronouns", "Use personal, reflexive, interrogative, and demonstrative pronouns correctly.", ["Personal pronouns include I, you, he, she, it, we, and they, plus their object forms.", "Reflexive pronouns include myself, yourself, himself, herself, itself, ourselves, yourselves, and themselves.", "Interrogative pronouns include who, whom, whose, what, and which.", "Demonstrative pronouns include this, these, that, and those."], [["Which is a reflexive pronoun?", ["them", "myself", "which", "those"], 1], ["Which word is an interrogative pronoun?", ["whose", "their", "these", "ourselves"], 0]]], ["5", "Adjectives", "Describe nouns with adjectives and compare people or things using comparative and superlative forms.", ["An adjective is a describing word that tells more about a noun.", "Adjectives can describe quality, origin, color, size, and quantity.", "Comparatives compare two: often -er or more.", "Superlatives compare three or more: often -est or most.", "Some forms are irregular, such as good → better → best and bad → worse → worst."], [["Which is the comparative form of 'tall'?", ["tallest", "more tall", "taller", "talling"], 2], ["Which is the superlative form of 'good'?", ["gooder", "better", "best", "most good"], 2]]], ["6", "Determiners", "Learn articles and other words that come before nouns.", ["A, an, and the are articles.", "A and an are indefinite articles used with singular nouns.", "The is the definite article for a particular or certain noun.", "Other determiners include this, those, my, their, which, and similar words."], [["Which article is normally used before a vowel sound in the book's examples?", ["a", "an", "the", "no article"], 1], ["Which is a definite article?", ["a", "an", "the", "my"], 2]]], ["7", "Verbs and Tenses", "Build a foundation in the main verb forms and tenses covered in the book.", ["Topics include simple present, am/is/are, present progressive, have/has, present perfect, and simple past.", "The book also covers regular and irregular verbs, was/were, past progressive, and future tense.", "Modal topics include can/could, may/might, would/should.", "Do, does, and did are also covered."], [["Which form belongs with 'she' in the present tense?", ["are", "is", "am", "were"], 1], ["Which is the past form of 'go'?", ["goed", "goes", "went", "going"], 2]]], ["8", "Subject-Verb Agreement", "Make the verb agree with the subject.", ["Identify the subject before choosing the verb form.", "Singular and plural subjects can require different verb forms.", "Check the subject rather than being distracted by nearby nouns."], [["Choose the correct sentence.", ["The boy play.", "The boy plays.", "The boys plays.", "The boys playing."], 1]]], ["9", "Adverbs", "Recognize adverbs and understand how they add information about actions and descriptions.", ["Adverbs can tell how, when, where, or to what degree something happens.", "Many adverbs end in -ly, although not all do.", "Use the sentence meaning to identify the word's function."], [["Which word is an adverb?", ["quickly", "green", "teacher", "under"], 0]]], ["10", "Prepositions", "Use words that show relationships of place, time, and direction.", ["Prepositions connect a noun or pronoun with another part of the sentence.", "Common examples include in, on, at, under, beside, and between.", "The correct preposition depends on the relationship expressed."], [["Which word is a preposition?", ["under", "happy", "run", "quickly"], 0]]], ["11", "Conjunctions", "Join words, phrases, and parts of sentences.", ["Conjunctions connect words or groups of words.", "Use a conjunction to show relationships such as addition, choice, contrast, or cause."], [["Which word can join two choices?", ["or", "under", "very", "blue"], 0]]], ["12", "Interjections", "Recognize words or short expressions that show strong feeling.", ["Interjections express emotion or a sudden reaction.", "They are often followed by an exclamation point, as emphasized in the book."], [["Which is an interjection?", ["Wow!", "because", "table", "quickly"], 0]]], ["13", "Sentences", "Understand sentence structure, sentence types, subjects, objects, negatives, and questions.", ["A sentence expresses a complete thought.", "The book covers kinds of sentences and the imperative.", "Learn to identify the subject and object, including direct and indirect objects.", "Practice positive and negative sentences and question forms."], [["Which is a complete sentence?", ["Running quickly", "The boy is running.", "Because it rained", "In the park"], 1]]], ["14", "Punctuation", "Use the main punctuation marks covered in the book.", ["A period ends many statements.", "A comma separates or organizes parts of a sentence.", "An exclamation point shows strong feeling.", "A question mark ends a direct question.", "An apostrophe is used in the situations taught in the book."], [["Which mark normally ends a direct question?", [".", ",", "!", "?"], 3]]]];
+let state = JSON.parse(localStorage.getItem("beg_course_progress") || '{"done":[]}');
+function save(){localStorage.setItem("beg_course_progress",JSON.stringify(state));updateStats();}
+function updateStats(){const p=Math.round(state.done.length/course.length*100);document.getElementById("overall").textContent=p+"% complete";document.getElementById("overallBar").style.width=p+"%";}
+function renderModules(active=0){
+ const box=document.getElementById("modules"); box.innerHTML="";
+ course.forEach((m,i)=>{const b=document.createElement("button");b.className="module-btn"+(i===active?" active":"");b.innerHTML="<strong>"+m[0]+". "+m[1]+"</strong><small>"+(state.done.includes(i)?"✓ Completed":"Not completed")+"</small>";b.onclick=()=>renderLesson(i);box.appendChild(b);});
+}
+function renderLesson(i){
+ const m=course[i], done=state.done.includes(i);
+ let quiz=m[4].map((q,qi)=>`<div class="question"><b>${qi+1}. ${q[0]}</b>${q[1].map((o,oi)=>`<label class="option"><input type="radio" name="q${qi}" value="${oi}"> ${o}</label>`).join("")}</div>`).join("");
+ document.getElementById("lesson").innerHTML=`<span class="tag">Module ${m[0]}</span><h2>${m[1]}</h2><p>${m[2]}</p><h3>What you'll learn</h3>${m[3].map(x=>`<div class="topic">${x}</div>`).join("")}<div class="quiz"><h3>Quick Check</h3>${quiz}<div class="btns"><button class="btn primary" onclick="checkQuiz(${i})">Check answers</button><button class="btn secondary" onclick="markDone(${i})">${done?"Completed ✓":"Mark lesson complete"}</button></div><p id="result" class="success"></p></div>`;
+ renderModules(i); updateStats();
+}
+function checkQuiz(i){
+ const qs=course[i][4]; let score=0;
+ qs.forEach((q,qi)=>{const el=document.querySelector(`input[name="q${qi}"]:checked`);if(el && Number(el.value)===q[2])score++;});
+ document.getElementById("result").textContent=`Score: ${score}/${qs.length}`;
+}
+function markDone(i){if(!state.done.includes(i))state.done.push(i);save();renderLesson(i);}
+function resetProgress(){if(confirm("Reset all saved progress on this device?")){state={done:[]};save();renderLesson(0);}}
+renderLesson(0);
+
+// PWA installation support. The manifest uses a unique V2 app id so it is not
+// intentionally identified as the same installed app as the older version.
+let deferredPrompt = null;
+const installBtn = document.getElementById('installBtn');
+window.addEventListener('beforeinstallprompt', (e) => {
+  e.preventDefault();
+  deferredPrompt = e;
+  installBtn.style.display = 'inline-block';
+});
+installBtn.addEventListener('click', async () => {
+  if (!deferredPrompt) return;
+  deferredPrompt.prompt();
+  await deferredPrompt.userChoice;
+  deferredPrompt = null;
+  installBtn.style.display = 'none';
+});
+window.addEventListener('appinstalled', () => {
+  installBtn.style.display = 'none';
+  deferredPrompt = null;
+});
+if ('serviceWorker' in navigator) {
+  window.addEventListener('load', () => navigator.serviceWorker.register('./sw.js').catch(() => {}));
+}
+</script>
+</body></html>
